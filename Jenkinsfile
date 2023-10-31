@@ -18,7 +18,7 @@ pipeline {
             steps {
                 // start the API in the background
                 dir("${WORKSPACE}/Net Mock API test") {
-                    bat 'dotnet run' 
+                    bat 'dotnet run &' 
                 }
                 sleep 30
             }
