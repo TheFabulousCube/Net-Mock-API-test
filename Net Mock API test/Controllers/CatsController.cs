@@ -20,7 +20,7 @@ namespace Net_Mock_API_test.Controllers
             string fact = "SUT - ";
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync(baseurl + "/fact"))
+                using (  var response = await httpClient.GetAsync(baseurl + "/fact"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     var thing = JsonConvert.DeserializeObject<CatFacts>(apiResponse);
