@@ -1,14 +1,14 @@
 pipeline {
     agent any
     stages {
-        stage('Build API') {
-            steps {
-                // build and run SUT api
-                dir("${WORKSPACE}") {
-                    bat 'dotnet build' 
-                }
-            }
-        }
+        // stage('Build API') {
+        //     steps {
+        //         // build and run SUT api
+        //         dir("${WORKSPACE}") {
+        //             bat 'dotnet build' 
+        //         }
+        //     }
+        // }
         stage('Start API') {
             steps {
                 // start the API in the background
