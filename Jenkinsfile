@@ -3,14 +3,9 @@ pipeline {
     stages {
         stage ('Git Checkout') {
             steps {
-                git branch: '*/master', url: 'https://github.com/TheFabulousCube/Net-Mock-API-test'
+                checkout scm
                 }
   }
-  stage('Restore packages') {
-  steps {
-    bat "dotnet restore ${workspace}/Net Mock API test.sln"
-  }
-}
         stage('Build API') {
             steps {
                 // build and run SUT api
