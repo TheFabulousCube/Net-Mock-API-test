@@ -37,8 +37,11 @@ pipeline {
 						dir("${WORKSPACE}/KarateTests") {
 						bat 'mvn clean test'
 						}
-                        echo 'Tests complete'
-                        bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
+                        echo 'Tests complete'  
+                        script {
+                            currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
+                            sleep(1)   // Interrupt is not blocking and does not take effect immediately.
+                        }                      
 					}
 				}
 			}
