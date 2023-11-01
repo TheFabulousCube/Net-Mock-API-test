@@ -8,9 +8,17 @@ pipeline {
 		}
         stage('Build API') {
             steps {
-                // build and run SUT api
-                dir("${WORKSPACE}") {
-                    bat 'dotnet build' 
+                // build and run SUT api;  this step gets counted as 'failed' when the process is killed
+                script {
+                    // Try Catch is not allowed in Declaritive, insert a Script block to use Groovy commands
+                    try {
+                        dir("${WORKSPACE}") {
+                            bat 'dotnet build' 
+                        }
+                    } catch (e) {
+                        echo 'Stopped API'
+                        return
+                    }
                 }
             }
         }
