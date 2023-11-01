@@ -46,9 +46,5 @@ pipeline {
             junit 'target/karate-reports/*.xml'
             }
         }
-        always {
-            // Stop the API process
-            bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
-        }
     }
 }
