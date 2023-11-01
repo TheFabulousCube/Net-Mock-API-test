@@ -4,8 +4,8 @@ pipeline {
         stage ('Git Checkout') {
             steps {
                 checkout scm
-                }
-  }
+			}
+		}
         stage('Build API') {
             steps {
                 // build and run SUT api
@@ -14,24 +14,28 @@ pipeline {
                 }
             }
         }
-        stage('Start API') {
-            steps {
-                // start the API in the background
-                dir("${WORKSPACE}/Net Mock API test") {
-                    bat 'dotnet run &' 
-                }
-                sleep 30
-            }
-        }
-        stage('Run Tests'){
-            steps {
-                // Run Karate tests against the API
-                dir("${WORKSPACE}/KarateTests") {
-                    bat 'mvn test'
-                }
-            }
-        }
-    }
+        stage('Run test') {
+			parallel {
+				stage('Start API'){
+					steps {
+						// start the API in the background
+						dir("${WORKSPACE}/Net Mock API test") {
+							bat 'dotnet run &' 
+						}
+					}
+				}
+				stage('Run Tests'){
+					steps {
+						sleep 30
+						// Run Karate tests against the API
+						dir("${WORKSPACE}/KarateTests") {
+						bat 'mvn test'
+						}
+					}
+				}
+			}
+		}
+	}
 
     post {
         always {
