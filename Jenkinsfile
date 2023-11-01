@@ -19,7 +19,7 @@ pipeline {
                         echo 'Stopped API'
                         echo currentBuild.result
                         echo currentStage.result
-                        
+                    }
                 }
             }
         }
