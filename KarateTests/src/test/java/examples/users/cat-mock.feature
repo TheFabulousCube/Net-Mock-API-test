@@ -1,3 +1,4 @@
+@Ignore
 Feature: Mock Server
 
 Scenario: pathMatches('/fact')
