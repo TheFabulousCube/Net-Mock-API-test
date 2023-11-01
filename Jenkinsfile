@@ -40,7 +40,7 @@ pipeline {
 	}
 
     post {
-        success {
+        always {
             // Send reports to Dashboard
             dir("${WORKSPACE}/KarateTests") {
             junit 'target/karate-reports/*.xml'
