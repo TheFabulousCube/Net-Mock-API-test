@@ -21,7 +21,7 @@ pipeline {
                         script {
                         // Try Catch is not allowed in Declaritive, insert a Script block to use Groovy commands
                             try {
-                                dir("${WORKSPACE}") {
+                                dir("${WORKSPACE}/Net Mock API test") {
                                 bat 'dotnet run' 
                                 }
                             } catch (e) {
