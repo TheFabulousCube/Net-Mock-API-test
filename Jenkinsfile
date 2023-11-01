@@ -29,8 +29,10 @@ pipeline {
 						sleep 30
 						// Run Karate tests against the API
 						dir("${WORKSPACE}/KarateTests") {
-						bat 'mvn test'
+						bat 'mvn clean test'
 						}
+                        echo 'Tests complete'
+                        bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
 					}
 				}
 			}
@@ -38,6 +40,12 @@ pipeline {
 	}
 
     post {
+        success {
+            // Send reports to Dashboard
+            dir("${WORKSPACE}/KarateTests") {
+            junit 'target/karate-reports/*.xml'
+            }
+        }
         always {
             // Stop the API process
             bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
