@@ -1,6 +1,23 @@
+// Product Information
+productName = "poc"
+buildName = "system-tests-karate"
+
 pipeline {
     agent any
     stages {
+        	stage('Version'){
+			agent any
+			steps{
+				script{
+					//Set build name to make build number/branch clear
+					currentBuild.displayName = "${cmBuildNumber}${" Cat Fact Test"}"
+					stepEnvironment = [
+						"BUILD_NAME=${buildName}",
+						"PRODUCT=${productName}",
+					]
+				}
+			}
+		}
         stage ('Git Checkout') {
             steps {
                 checkout scm
