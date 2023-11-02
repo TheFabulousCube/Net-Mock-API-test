@@ -6,11 +6,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Net_Mock_API_test</RootNamespace>
     <GenerateDocumentationFile>False</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
   </ItemGroup>
 
 </Project>
