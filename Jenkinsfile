@@ -10,6 +10,7 @@ pipeline {
             steps {
                 // build and run SUT api
                 dir("${WORKSPACE}") {
+                    bat 'dotnet restore'
                     bat 'dotnet build' 
                 }
             }
