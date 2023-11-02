@@ -10,8 +10,6 @@ pipeline {
             steps {
                 // build and run SUT api
                 dir("${WORKSPACE}") {
-                    bat 'dotnet clean'
-                    bat 'dotnet restore'
                     bat 'dotnet build' 
                 }
             }
@@ -39,11 +37,8 @@ pipeline {
 						dir("${WORKSPACE}/KarateTests") {
 						bat 'mvn clean test'
 						}
-                        echo 'Tests complete'  
-                        script {
-                            currentBuild.getRawBuild().getExecutor().interrupt(Result.SUCCESS)
-                            sleep(1)   // Interrupt is not blocking and does not take effect immediately.
-                        }                      
+                        echo 'Tests complete'
+                        bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
 					}
 				}
 			}
@@ -54,8 +49,8 @@ pipeline {
         always {
             // Send reports to Dashboard
             dir("${WORKSPACE}/KarateTests") {
-                junit 'target/karate-reports/*.xml'
-                cucumber 'target/karate-reports/*.json'
+            junit 'target/karate-reports/*.xml'
+            cucumber 'target/karate-reports/*.json'
             }
         }
     }
