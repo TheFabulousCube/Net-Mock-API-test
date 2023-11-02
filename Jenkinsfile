@@ -1,6 +1,7 @@
 // Product Information
 productName = "poc"
 buildName = "system-tests-karate"
+cmBuildNumber = currentBuild.number
 
 pipeline {
     agent any
