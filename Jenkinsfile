@@ -19,11 +19,6 @@ pipeline {
 				}
 			}
 		}
-        stage ('Git Checkout') {
-            steps {
-                checkout scm
-			}
-		}
         stage('Build API') {
             steps {
                 // build and run SUT api
@@ -48,12 +43,23 @@ pipeline {
                         }
 					}
 				}
-				stage('Run Tests'){
+				// stage('Run Tests'){
+				// 	steps {
+				// 		sleep 30
+				// 		// Run Karate tests against the API
+				// 		dir("${WORKSPACE}/KarateTests") {
+				// 		bat 'mvn clean test'
+				// 		}
+                //         echo 'Tests complete'
+                //         bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
+				// 	}
+				// }
+				stage('Performance Tests'){
 					steps {
 						sleep 30
 						// Run Karate tests against the API
 						dir("${WORKSPACE}/KarateTests") {
-						bat 'mvn clean test'
+						bat 'mvn clean test-compile gatling:test'
 						}
                         echo 'Tests complete'
                         bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
