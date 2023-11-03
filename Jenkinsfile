@@ -72,10 +72,11 @@ pipeline {
     post {
         always {
             // Send reports to Dashboard
-            dir("${WORKSPACE}/KarateTests") {
-            junit 'target/karate-reports/*.xml'
-            cucumber 'target/karate-reports/*.json'
-            }
+            // dir("${WORKSPACE}/KarateTests") {
+            // junit 'target/karate-reports/*.xml'
+            // cucumber 'target/karate-reports/*.json'
+            // }
+			gatlingArchive()
         }
     }
 }
