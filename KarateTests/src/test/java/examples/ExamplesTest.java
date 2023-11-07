@@ -27,7 +27,7 @@ public class ExamplesTest {
 
     static void startExampleService() throws InterruptedException {
         String authzBaseUrl = "https://localhost:7196";
-        String APIenvironment = "Development";
+        String APIenvironment = "QA";
         System.setProperty("authzBaseUrl", authzBaseUrl);
 
 
