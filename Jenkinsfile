@@ -28,14 +28,12 @@ pipeline {
             }
         }
         stage('Run test') {
-			stage('Run Tests'){
-				steps {
-					// Run Karate tests against the API
-					dir("${WORKSPACE}/KarateTests") {
-					bat 'mvn clean test'
-					}
-					echo 'Tests complete'
+			steps {
+				// Run Karate tests against the API
+				dir("${WORKSPACE}/KarateTests") {
+				bat 'mvn clean test'
 				}
+				echo 'Tests complete'
 			}
 		}
 	}
