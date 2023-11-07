@@ -40,11 +40,11 @@
             <version>5.7.2</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.github.javafaker</groupId>
-            <artifactId>javafaker</artifactId>
-            <version>1.0.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.github.javafaker</groupId>-->
+<!--            <artifactId>javafaker</artifactId>-->
+<!--            <version>1.0.2</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
@@ -75,38 +75,8 @@
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>io.gatling</groupId>
-                <artifactId>gatling-maven-plugin</artifactId>
-                <version>4.3.4</version>
-                <configuration>
-                    <simulationsFolder>src/test/java/performance</simulationsFolder>
-                    <configFolder>src/test/java/performance/data</configFolder>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>4.5.6</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>testCompile</goal>
-                        </goals>
-                        <configuration>
-                            <args>
-                                <arg>-Jbackend:GenBCode</arg>
-                                <arg>-Jdelambdafy:method</arg>
-                                <arg>-deprecation</arg>
-                                <arg>-feature</arg>
-                                <arg>-unchecked</arg>
-                                <arg>-language:implicitConversions</arg>
-                                <arg>-language:postfixOps</arg>
-                            </args>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+
+
         </plugins>        
     </build>       
     
