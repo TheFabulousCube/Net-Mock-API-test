@@ -29,40 +29,29 @@ pipeline {
         }
         stage('Run test') {
 			parallel {
-				stage('Start API'){
-					steps {
-                        script {
-                        // Try Catch is not allowed in Declaritive, insert a Script block to use Groovy commands
-                            try {
-                                dir("${WORKSPACE}/Net Mock API test") {
-                                bat 'dotnet run' 
-                                }
-                            } catch (e) {
-                                echo 'Stopped API'
-                            }
-                        }
-					}
-				}
-				// stage('Run Tests'){
+				// stage('Start API'){
 				// 	steps {
-				// 		sleep 30
-				// 		// Run Karate tests against the API
-				// 		dir("${WORKSPACE}/KarateTests") {
-				// 		bat 'mvn clean test'
-				// 		}
-                //         echo 'Tests complete'
-                //         bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
+                //         script {
+                //         // Try Catch is not allowed in Declaritive, insert a Script block to use Groovy commands
+                //             try {
+                //                 dir("${WORKSPACE}/Net Mock API test") {
+                //                 bat 'dotnet run' 
+                //                 }
+                //             } catch (e) {
+                //                 echo 'Stopped API'
+                //             }
+                //         }
 				// 	}
 				// }
-				stage('Performance Tests'){
+				stage('Run Tests'){
 					steps {
-						sleep 30
+						// sleep 30
 						// Run Karate tests against the API
 						dir("${WORKSPACE}/KarateTests") {
-						bat 'mvn clean test-compile gatling:test'
+						bat 'mvn clean test'
 						}
                         echo 'Tests complete'
-                        bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
+                        // bat 'taskkill/F /FI "IMAGENAME eq dotnet.exe"'
 					}
 				}
 			}
@@ -72,11 +61,10 @@ pipeline {
     post {
         always {
             // Send reports to Dashboard
-            // dir("${WORKSPACE}/KarateTests") {
-            // junit 'target/karate-reports/*.xml'
-            // cucumber 'target/karate-reports/*.json'
-            // }
-			gatlingArchive()
+            dir("${WORKSPACE}/KarateTests") {
+            junit 'target/karate-reports/*.xml'
+            cucumber 'target/karate-reports/*.json'
+            }
         }
     }
 }
