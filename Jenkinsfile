@@ -21,7 +21,7 @@ pipeline {
 		}
         stage('Build API') {
             steps {
-                // build and SUT api
+                // build SUT api
                 dir("${WORKSPACE}") {
                     bat 'dotnet build' 
                 }

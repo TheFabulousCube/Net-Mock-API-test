@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URI;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -26,9 +25,9 @@ public class ExamplesTest {
     }
 
     static void startExampleService() throws InterruptedException {
-        String authzBaseUrl = "https://localhost:7196";
-        String APIenvironment = "QA";
-        System.setProperty("authzBaseUrl", authzBaseUrl);
+        String SUTBaseUrl = "https://localhost:7196";
+        String APIenvironment = "Test";
+        System.setProperty("SUTBaseUrl", SUTBaseUrl);
 
 
         String dotnet = "dotnet";
@@ -37,7 +36,7 @@ public class ExamplesTest {
 
         ProcessBuilder builder = new ProcessBuilder(dotnet, dll);
         Map<String, String> env = builder.environment();
-        env.put("ASPNETCORE_URLS", authzBaseUrl);
+        env.put("ASPNETCORE_URLS", SUTBaseUrl);
         env.put("ASPNETCORE_ENVIRONMENT", APIenvironment);
         builder.directory(new File(workspaceFolder));
 
@@ -48,22 +47,20 @@ public class ExamplesTest {
         }
 
         try {
-            System.out.println("starting");
+            System.out.println("Starting system under test");
             serviceUnderTest = builder.start();
-            System.out.println("Got here2" + serviceUnderTest.toString());
             synchronized(serviceUnderTest) {
 //                 TODO Wait until we get message from service indicating it's ready? Do Health checks until success? Something more robust than arbritary timeout
                 serviceUnderTest.wait(3000);
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-            System.out.println("and failed");
             e.printStackTrace();
         }
     }
 
     @AfterAll
     static void tearDown() {
+        System.out.println("Stopping system under test");
         boolean shouldStartServices = !Boolean.getBoolean("servicesRunning");
         if (shouldStartServices) {
             serviceUnderTest.destroy();

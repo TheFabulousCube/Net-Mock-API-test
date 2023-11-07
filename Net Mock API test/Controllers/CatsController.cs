@@ -23,8 +23,8 @@ namespace Net_Mock_API_test.Controllers
                 using (  var response = await httpClient.GetAsync(baseurl + "/fact"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    var thing = JsonConvert.DeserializeObject<CatFacts>(apiResponse);
-                    fact += thing.fact;
+                    var catFact = JsonConvert.DeserializeObject<CatFacts>(apiResponse);
+                    fact += catFact.fact;
                 }
 
             }
